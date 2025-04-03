@@ -13,7 +13,7 @@
     "MySQL",
     "Express"
   ],
-  "author": "Lucas Godoi",
+  "author": "João Henrique",
   "license": "MIT",
   "description": "Introdução API NODES JS",
   "dependencies": {
