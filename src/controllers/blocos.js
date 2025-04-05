@@ -1,6 +1,6 @@
-const db = require('../database/connection');
+const bd = require('../dataBase/connections');
 
-module.exports ={
+module.exports = {
     async listablocos (request, response) {
         try {
             return response.status(200).json({
@@ -11,7 +11,7 @@ module.exports ={
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
-                mensagem: 'Erro na Listagem de usuários.',
+                mensagem: 'Erro na Listagem de blocos.',
                 dados: error.message
             
             });
@@ -28,7 +28,7 @@ module.exports ={
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
-                mensagem: 'Erro na Listagem de usuários.',
+                mensagem: 'Erro na Listagem de blocos.',
                 dados: error.message
             
             });
@@ -45,7 +45,7 @@ module.exports ={
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
-                mensagem: 'Erro na Listagem de usuários.',
+                mensagem: 'Erro na Listagem de blocos.',
                 dados: error.message
             
             });
@@ -61,7 +61,7 @@ module.exports ={
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
-                mensagem: 'Erro na Listagem de usuários.',
+                mensagem: 'Erro na Listagem de blocos.',
                 dados: error.message
             
             });
