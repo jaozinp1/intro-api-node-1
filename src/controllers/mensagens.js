@@ -22,7 +22,7 @@ module.exports = {
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Cadastrar bloco.',
+                mensagem: 'Cadastrar mensagens.',
                 dados: null
             });
         } catch (error) {
