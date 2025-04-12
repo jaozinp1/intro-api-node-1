@@ -3,10 +3,22 @@ const bd = require('../dataBase/connections');
 module.exports = {
     async listamensagens (request, response) {
         try {
+
+            const sql = `SELECT
+             msg_id, cond_id, userap_id msg_mensagem,
+             msg_data_envio msg_status
+             FROM mensagens;
+             `;
+            
+
+             const [row] = await db.query(sql);
+             const nItens = row.lenght;
+
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Lista de mensagens.',
-                dados: null
+                nItens,
+                dados: row
             });
         } catch (error) {
             return response.status(500).json({

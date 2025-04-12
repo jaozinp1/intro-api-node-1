@@ -3,10 +3,20 @@ const bd = require('../dataBase/connections');
 module.exports = {
     async listablocos (request, response) {
         try {
+
+            const sql = `SELECT bloc_id, 
+            cond_id, bloc_nome FROM bloco;
+            `;
+           
+
+            const [row] = await db.query(sql);
+            const nItens = row.lenght;
+            
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Lista de blocos.',
-                dados: null
+                nItens,
+                dados: row
             });
         } catch (error) {
             return response.status(500).json({
