@@ -1,4 +1,4 @@
-const bd = require('../dataBase/connections');
+const db = require('../dataBase/connections');
 
 module.exports = {
     async listablocos (request, response) {
