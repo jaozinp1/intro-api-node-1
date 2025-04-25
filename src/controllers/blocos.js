@@ -30,10 +30,32 @@ module.exports = {
 
     async cadastrarblocos (request, response) {
         try {
+            const { cond_id, bloc_nome } = request.body;
+            const bloc_ativa = 1;
+
+            //introdução SQL
+            const sql = `
+            INSERT INTO bloco
+                (cond_id, bloc_nome)
+            VALUES
+                (?, ?);
+            `;
+            
+            // definição dos dados a serem inseridos em um array
+            const values = [cond_id, bloc_nome];
+            //execução da instrução sql passando os parametros
+            const [result] = await db.query(sql,values);
+            //indentificação do ID do registro inserido
+                const dados = {
+                id: result.insertID,
+                cond_id,
+                bloc_nome                    
+                };
+
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Cadastrar bloco.',
-                dados: null
+                dados
             });
         } catch (error) {
             return response.status(500).json({
