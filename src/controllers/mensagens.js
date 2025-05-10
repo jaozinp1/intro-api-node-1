@@ -54,7 +54,7 @@ module.exports = {
                 id: result.insertID,
                 cond,
                 userap,
-                mensagem,
+                mensagem,   
                 dt_envio,
                 msg_status
              }
@@ -77,11 +77,43 @@ module.exports = {
 
     async editarmensagens (request, response) {
         try {
+            const { cond, userap, mensagem, dt_envio, msg_status} = request.body;
+
+            const { id } = request.params;
+
+            const sql = `
+            UPDATE mensagens SET
+                cond_id = ?, userap_id = ?, msg_mensagem = ?, msg_data_envio = ?, msg_status = ?
+            WHERE 
+                msg_id = ?;
+            `;
+
+            const values = [cond, userap, mensagem, dt_envio, msg_status, id];
+            
+            const [result] = await db.query(sql, values);
+
+            if  (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: `Mensagem ${id} não encontrada.`,
+                    dados: null
+                });
+            }
+
+            const dados = {
+                cond,
+                userap,
+                mensagem,
+                dt_envio,
+                msg_status
+            };
+
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Editar mensagens.',
-                dados: null
+                mensagem: `Mensagem ${id} editada com sucesso.`,
+                dados
             });
+
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,

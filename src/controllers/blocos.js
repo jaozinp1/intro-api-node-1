@@ -69,10 +69,37 @@ module.exports = {
 
     async editarblocos (request, response) {
         try {
+            const { cond_id, bloc_nome } = request.body;
+
+            const { id } = request.params;
+
+            const sql = `
+            UPDATE bloco SET
+                cond_id = ?, bloc_nome = ? 
+            WHERE 
+                bloc_id = ?;
+            `;
+            const values = [cond_id, bloc_nome, id];
+
+            const [result] = await db.query(sql,values);
+            
+            if (result.affectedRows == 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: `Bloco ${id}não encontrado.`,
+                    dados
+                });
+            }
+            const dados = {
+                id,
+                cond_id,
+                bloc_nome
+            };
+
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Editar blocos.',
-                dados: null
+                mensagem: `Bloco ${id} editado.`,
+                dados
             });
         } catch (error) {
             return response.status(500).json({

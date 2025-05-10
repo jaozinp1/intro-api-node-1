@@ -7,12 +7,12 @@ const mensagensController = require('../controllers/mensagens');
 
 router.get('/blocos', blocosController.listablocos);
 router.post('/blocos', blocosController.cadastrarblocos);
-router.patch('/blocos', blocosController.editarblocos);
+router.patch('/blocos/:id', blocosController.editarblocos);
 router.delete('/blocos', blocosController.apagarblocos);
 
 router.get('/mensagens', mensagensController.listamensagens);
 router.post('/mensagens', mensagensController.cadastrarmensagens);
-router.patch('/mensagens', mensagensController.editarmensagens);
+router.patch('/mensagens/:id', mensagensController.editarmensagens);
 router.delete('/mensagens', mensagensController.apagarmensagens);
 
 module.exports = router;
