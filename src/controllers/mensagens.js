@@ -125,15 +125,28 @@ module.exports = {
     },
     async apagarmensagens (request, response) {
         try {
+            const { id } = request.params;
+            const sql = `DELETE FROM mensagens WHERE msg_id = ?;`;
+            const values = [id];
+            const [result] = await db.query(sql, values);
+
+            if (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: `Mensagem ${id} não encontrada.`,
+                    dados: null
+                });
+            }
+
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'apagar mensagens.',
+                mensagem: `Mensagem ${id} apagada com sucesso.`,
                 dados: null
             });
         } catch (error) {
             return response.status(500).json({
                 sucesso: false,
-                mensagem: 'Erro na Listagem de mensagens.',
+                mensagem: 'Erro na requisição de mensagens.',
                 dados: error.message
             
             });

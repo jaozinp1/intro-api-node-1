@@ -79,7 +79,7 @@ module.exports = {
             WHERE 
                 bloc_id = ?;
             `;
-            const values = [cond_id, bloc_nome, id];
+            const values = [cond_id, bloc_nome,];
 
             const [result] = await db.query(sql,values);
             
@@ -91,7 +91,6 @@ module.exports = {
                 });
             }
             const dados = {
-                id,
                 cond_id,
                 bloc_nome
             };
@@ -112,9 +111,21 @@ module.exports = {
     },
     async apagarblocos (request, response) {
         try {
+            const { id } = request.params;
+            const sql = `DELETE FROM bloco WHERE bloc_id = ?;`;
+            const values = [id];
+            const [result] = await db.query(sql,values);
+            if (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: `Bloco ${bloc_id}não encontrado.`,
+                    dados: null
+                });
+            }
+
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'apagar blocos.',
+                mensagem: `Bloco ${id} apagado com sucesso.`,
                 dados: null
             });
         } catch (error) {
